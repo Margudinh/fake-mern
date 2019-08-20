@@ -1,3 +1,13 @@
-# Fake-mern
+# Fake Mern
 
-Using MySQL, Express and NextJS just for fun (yeah i like to suffer)
+TypeORM (using MySQL), express, Nextjs, Node boilerplate
+
+## This boilerplate contains
+- JWT login authentication
+- Login / Register User
+
+## Things i should improve
+
+- Use graphql nicely (or remove it)
+- Form validation
+- Put this in a kanban board OMEGALUL

@@ -1,15 +1,27 @@
 import { Router, Request, Response } from 'express';
 import { User } from "../entity/User";
 import * as Bcrypt from 'bcrypt';
+import { check , validationResult } from 'express-validator';
 
 const router = Router();
 
-router.get("/", async (req: Request, res: Response) => {
+router.get("/",async (req: Request, res: Response) => {
     const users = await User.find({ select: ['id', 'firstName', 'lastName', 'age', 'email'] });
     res.json(users);
 });
 
-router.post("/", async (req: Request, res: Response) => {
+router.post("/", [
+    check('email').isEmail(),
+    check('password').isLength({min: 6}),
+    check('age').isInt()
+] ,async (req: Request, res: Response) => {
+
+    const errors = validationResult(req);
+    if(errors){
+        res.status(422).json(errors.array());
+        return;
+    }
+
     const user = new User();
     user.firstName = req.body.firstName;
     user.age = req.body.age;
